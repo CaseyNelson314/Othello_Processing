@@ -27,7 +27,7 @@ void drawBoard(int x, int y, int boardSize) {
   fill(0);
   noStroke();
   ellipseMode(CENTER);
-  ellipse(x + blockSize*-2, y + blockSize *-2, dotSize, dotSize);
+  ellipse(x + blockSize*-2, y + blockSize *-2, dotSize, dotSize); //<>//
   ellipse(x + blockSize*-2, y + blockSize * 2, dotSize, dotSize);
   ellipse(x + blockSize* 2, y + blockSize *-2, dotSize, dotSize);
   ellipse(x + blockSize* 2, y + blockSize * 2, dotSize, dotSize);
@@ -51,5 +51,5 @@ void drawBoard(int x, int y, int boardSize) {
     fill(0);
   else
     fill(255);
-  ellipse(mouseX, mouseY, blockSize*0.7, blockSize*0.7);
+  ellipse(mouseX, mouseY, blockSize*0.7, blockSize*0.7); //<>//
 }

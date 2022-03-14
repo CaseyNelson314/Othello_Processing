@@ -25,6 +25,7 @@ void mouseCD(int x, int y, int boardSize) { //ボードとカーソルの当た�
         if (clickData && canPut(i, j)) {
           mouseClick_x=i;
           mouseClick_y=j;
+          println("canPut");
         }
       }
     }
