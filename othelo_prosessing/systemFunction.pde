@@ -5,23 +5,40 @@ int getBoradSize() { //画面比率調整
     return width;
 }
 
+int getScore_white() {
+  int score= 0; 
+  for (int i=0; i<8; i++)
+    for (int j=0; j<8; j++)
+      score += othello_white[i][j] ? 1 : 0;
+  return score;
+}
+int getScore_black() {
+  int score= 0; 
+  for (int i=0; i<8; i++)
+    for (int j=0; j<8; j++)
+      score += othello_black[i][j] ? 1 : 0;
+  return score;
+}
+
 boolean clickData, lastData;
-void mouseCD(int x, int y, int boardSize) { //ボードとカーソルの当たり判定をmouseHoverへ書き込み
+boolean mouseClick() { 
+  clickData = mousePressed && !lastData; 
+  lastData = mousePressed;
+  return clickData;
+}
+
+void mouseCD(int x, int y, int boardSize) { //ボードとカーソルの当たり判定をhighlightへ書き込み
   float blockSize = boardSize / 8;
   float corner_x = x + blockSize*-4;
   float corner_y = y + blockSize*-4;
 
-  mouseHover_x = mouseHover_y = -1;
-
-  clickData = mousePressed && !lastData; 
-  lastData = mousePressed;
-
   for (int i=0; i<8; i++)
     for (int j=0; j<8; j++) {
-      if ((mouseX > corner_x + blockSize*i) && (corner_x + blockSize*(i+1) > mouseX) && (mouseY > corner_y + blockSize*j) && (corner_y + blockSize*(j+1) > mouseY)) {
-        mouseHover_x = i;
-        mouseHover_y = j;
-        if (clickData&&canPut(i, j, true)) {
+      highlight[i][j]=false;
+      if ((mouseX > corner_x + blockSize*i) && (corner_x + blockSize*(i+1) > mouseX)
+        && (mouseY > corner_y + blockSize*j) && (corner_y + blockSize*(j+1) > mouseY)) {
+        highlight[i][j]=true;
+        if (mouseClick()&&canPut(i, j, true)) {
           turn ^= true;
           if (isSkip()) { //相手がスキップか確認
             turn ^= true;
@@ -71,12 +88,18 @@ boolean canPut(int x, int y, boolean changeMode) {
   return returnData;
 }
 
-void boardReset() {
+void clearBoard() {
   for (int i=0; i<8; i++)
     for (int j=0; j<8; j++) {
       othello_black[i][j]=false;
       othello_white[i][j]=false;
     }
+}
+
+void boardReset() {
+  mode=0;
+  isHintMode=false;
+  clearBoard();
   othello_black[3][3]=true;
   othello_black[4][4]=true;
   othello_white[3][4]=true;
@@ -91,4 +114,28 @@ boolean isSkip() {
       canPut += canPut(i, j, false) ? 1 : 0;
   println(canPut);
   return canPut==0;
+}
+
+void showHint() {
+  for (int i=0; i<8; i++)
+    for (int j=0; j<8; j++)
+      highlight[i][j]=canPut(i, j, false);
+}
+
+void boardSort() {
+  int score_white = getScore_white();
+  int score_black = getScore_black();
+  clearBoard();
+  for (int i=0; i<8; i++)
+    for (int j=0; j<8; j++) {
+      if (score_black==0)break;
+      othello_black[i][j]=true;
+      score_black--;
+    }
+  for (int i=0; i<8; i++)
+    for (int j=0; j<8; j++) {
+      if (score_white==0)break;
+      othello_white[7-i][7-j]=true;
+      score_white--;
+    }
 }
