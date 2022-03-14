@@ -1,3 +1,29 @@
+void drawScore(int x, int y, int boardSize) { //<>// //<>//
+
+  int score_black = 0; 
+  int score_white = 0;
+  for (int i=0; i<8; i++)
+    for (int j=0; j<8; j++) {
+      score_black += othello_black[i][j] ? 1 : 0;
+      score_white += othello_white[i][j] ? 1 : 0;
+    }
+
+  noStroke();
+  rectMode(CENTER);
+  fill(#eeeeee);
+  rect(x - boardSize/4, y - boardSize*0.67, boardSize*0.4, boardSize*0.2, 20);
+  fill(#0d1117);
+  rect(x + boardSize/4, y - boardSize*0.67, boardSize*0.4, boardSize*0.2, 20);
+
+  fill(#0d1117);
+  textAlign(CENTER);
+  textSize(boardSize/10);
+  fill(#0d1117);
+  text(score_white, x - boardSize/4, y - boardSize * 0.63);
+  fill(#eeeeee);
+  text(score_black, x + boardSize/4, y - boardSize * 0.63);
+}
+
 void drawBoard(int x, int y, int boardSize) {
 
   float blockSize = boardSize / 8; //ブロック1辺
@@ -27,7 +53,7 @@ void drawBoard(int x, int y, int boardSize) {
   fill(0);
   noStroke();
   ellipseMode(CENTER);
-  ellipse(x + blockSize*-2, y + blockSize *-2, dotSize, dotSize); //<>//
+  ellipse(x + blockSize*-2, y + blockSize *-2, dotSize, dotSize);
   ellipse(x + blockSize*-2, y + blockSize * 2, dotSize, dotSize);
   ellipse(x + blockSize* 2, y + blockSize *-2, dotSize, dotSize);
   ellipse(x + blockSize* 2, y + blockSize * 2, dotSize, dotSize);
@@ -51,5 +77,5 @@ void drawBoard(int x, int y, int boardSize) {
     fill(0);
   else
     fill(255);
-  ellipse(mouseX, mouseY, blockSize*0.7, blockSize*0.7); //<>//
+  ellipse(mouseX, mouseY, blockSize*0.7, blockSize*0.7);
 }
