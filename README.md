@@ -11,7 +11,8 @@ Othello on prosessing
 
 - マスをクリックすることでコマを置けます
 
-![image](https://user-images.githubusercontent.com/91818705/158218404-e36218c6-3bff-4dfb-9031-1e780ee82f20.png)
+![image](https://user-images.githubusercontent.com/91818705/158292091-86553b62-32c3-4ff4-8c93-99e21d3771c7.png)
+
 
 - HINT : 置けるマスを表示
 - RESET : 初期化
