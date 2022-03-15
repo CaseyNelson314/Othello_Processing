@@ -43,8 +43,10 @@ void mouseCD(int x, int y, int boardSize) { //ボードとカーソルの当た�
           if (isSkip()) { //相手がスキップか確認
             turn ^= true;
             if (isSkip())//どっちも置けない
-              mode = 2;
+              mode++;
+            return;
           }
+          turnAI();
         }
       }
     }
@@ -78,8 +80,8 @@ boolean canPut(int x, int y, boolean changeMode) {
       }
       if (changeMode && returnData) //反転モード
         for (int j=0; j<=changeSum; j++) {
-          int index_x = x+sum_x*j;
-          int index_y = y+sum_y*j;
+          int index_x = x + sum_x*j;
+          int index_y = y + sum_y*j;
           othello_black[index_x][index_y]=turn;
           othello_white[index_x][index_y]=!turn;
         }
@@ -96,15 +98,28 @@ void clearBoard() {
     }
 }
 
+void clearHighlight() {
+  for (int i=0; i<8; i++)
+    for (int j=0; j<8; j++)
+      highlight[i][j]=false;
+}
+
 void boardReset() {
   mode=0;
   isHintMode=false;
   clearBoard();
-  othello_black[3][3]=true;
-  othello_black[4][4]=true;
-  othello_white[3][4]=true;
-  othello_white[4][3]=true;
   turn = (int)random(2)==0 ? true : false;
+  if (turn) {
+    othello_black[3][3]=true;
+    othello_black[4][4]=true;
+    othello_white[3][4]=true;
+    othello_white[4][3]=true;
+  } else {
+    othello_white[3][3]=true;
+    othello_white[4][4]=true;
+    othello_black[3][4]=true;
+    othello_black[4][3]=true;
+  }
 }
 
 boolean isSkip() {
@@ -128,14 +143,14 @@ void boardSort() {
   clearBoard();
   for (int i=0; i<8; i++)
     for (int j=0; j<8; j++) {
-      if (score_black==0)break;
-      othello_black[i][j]=true;
-      score_black--;
+      if (score_white==0)break;
+      othello_white[i][j]=true;
+      score_white--;
     }
   for (int i=0; i<8; i++)
     for (int j=0; j<8; j++) {
-      if (score_white==0)break;
-      othello_white[7-i][7-j]=true;
-      score_white--;
+      if (score_black==0)break;
+      othello_black[7-i][7-j]=true;
+      score_black--;
     }
 }

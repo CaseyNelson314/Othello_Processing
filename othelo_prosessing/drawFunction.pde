@@ -1,4 +1,10 @@
-void drawTurn(int x, int y, int boardSize) { //ターン表示用バー //<>//
+void turnAI() { //<>//
+  if (AImode==false)return;
+
+  turn^=true;
+}
+
+void drawTurn(int x, int y, int boardSize) { //ターン表示用バー
   noStroke();
   rectMode(CENTER);
   fill(#eeeeee);
@@ -8,7 +14,26 @@ void drawTurn(int x, int y, int boardSize) { //ターン表示用バー //<>//
     rect(x + boardSize/4, y - boardSize*0.533, boardSize*0.4, boardSize*0.03, 10);
 }
 
+boolean AImode;
 boolean isHintMode;
+boolean isSettingMode;
+
+void botton(int bottonType) {
+  switch(bottonType) {
+  case 0: //hit button
+    isHintMode^=true;
+    break;
+  case 1: //reset botton
+    if (mode==2) {
+      boardSort();
+      mode++;
+    } else
+      boardReset();
+    break;
+  case 2:
+    AImode^=true;
+  }
+}
 void optionBotton(int x, int y, int boardSize) { //下部ボタン表示
   float blockSize = boardSize/3; //ブロック1辺
   float corner_x = x - boardSize*0.498;
@@ -21,21 +46,12 @@ void optionBotton(int x, int y, int boardSize) { //下部ボタン表示
       && (mouseY > corner_y) && (corner_y + boardSize*0.1 > mouseY)) {
       fill(#b6e9a1);
       if (mouseClick())
-        switch(i) {
-        case 0: //hit button
-          isHintMode^=true;
-          break;
-        case 1: //reset botton
-          if (mode==2){
-            boardSort();
-            mode++;
-          }else
-            boardReset();
-          break;
-        }
+        botton(i);
     } else
-      fill(#eeeeee);
+      fill(#51bd50);
     if (isHintMode&&i==0) //ヒントモード時ハイライト
+      fill(#b6e9a1);
+    if (AImode&&i==2)
       fill(#b6e9a1);
     rect(corner_x + boardSize/3*i, corner_y, boardSize/3, boardSize*0.1);
   }
@@ -45,23 +61,23 @@ void optionBotton(int x, int y, int boardSize) { //下部ボタン表示
   strokeWeight(1.5);
   rect(corner_x, corner_y, blockSize*3, boardSize*0.1);
 
-  fill(#0d1117);
+  fill(255);
   textAlign(CENTER);
-  textSize(boardSize/15);
+  textSize(boardSize/20);
 
-  text("HINT", corner_x + blockSize/2*1, corner_y + boardSize*0.075);
+  text("HINT", corner_x + blockSize/2*1, corner_y + boardSize*0.07);
 
   if (mode!=2)
-    text("RESET", corner_x + blockSize/2*3, corner_y + boardSize*0.075);
+    text("RESET", corner_x + blockSize/2*3, corner_y + boardSize*0.07);
   else
-    text("SORT", corner_x + blockSize/2*3, corner_y + boardSize*0.075);
+    text("SORT", corner_x + blockSize/2*3, corner_y + boardSize*0.07);
 
-  text("SETTING", corner_x + blockSize/2*5, corner_y + boardSize*0.075);
+  text("AUTO", corner_x + blockSize/2*5, corner_y + boardSize*0.07);
 }
 
 void drawScore(int x, int y, int boardSize) { //スコアボード
-  int score_black = getScore_white(); 
-  int score_white = getScore_black();
+  int score_black = getScore_black(); 
+  int score_white = getScore_white();
 
   noStroke();
   rectMode(CENTER);
@@ -79,7 +95,8 @@ void drawScore(int x, int y, int boardSize) { //スコアボード
   text(score_black, x + boardSize/4, y - boardSize * 0.63);
 }
 
-void drawBoard(int x, int y, int boardSize) {
+
+void drawBoard(int x, int y, int boardSize) { //ボード表示
 
   float blockSize = boardSize/8; //ブロック1辺
 
@@ -128,18 +145,14 @@ void drawBoard(int x, int y, int boardSize) {
     }
 
   /*マウスに駒表示*/
-  if (mode==1) {
-    int mouseGlow=abs(millis()/10%200-100)+155;
-    if (turn)
-      fill(0, mouseGlow);
-    else
-      fill(255, mouseGlow);
-    ellipse(mouseX, mouseY, blockSize*0.7, blockSize*0.7);
-  }
 }
 
-void clearHighlight() {
-  for (int i=0; i<8; i++)
-    for (int j=0; j<8; j++)
-      highlight[i][j]=false;
+void drawCursor(int boardSize) {
+  if (mode!=1 || isSettingMode==true)return;
+  int mouseGlow=abs(millis()/10%200-100)+155;
+  if (turn)
+    fill(0, mouseGlow);
+  else
+    fill(255, mouseGlow);
+  ellipse(mouseX, mouseY, boardSize*0.09, boardSize*0.09);
 }

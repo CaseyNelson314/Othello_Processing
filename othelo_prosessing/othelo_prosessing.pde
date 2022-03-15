@@ -11,13 +11,13 @@ boolean highlight[][] = new boolean[8][8];
 
 boolean turn; //true:black,false:white
 
+int mode;
 
 void setup() {
   frameRate(240);
   surface.setResizable(true);
   surface.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 }
-int mode;
 void draw() {
   background(#e5b26a);
   print((int)frameRate);
@@ -34,17 +34,23 @@ void draw() {
     drawScore(width/2, height/2, boardSize);
     drawTurn(width/2, height/2, boardSize);
     drawBoard(width/2, height/2, boardSize);
+    drawCursor(boardSize);
     break;
   case 2: //ソート待機
     isHintMode=false;
+    AImode=false;
     clearHighlight();
     optionBotton(width/2, height/2, boardSize);
     drawScore(width/2, height/2, boardSize);
     drawBoard(width/2, height/2, boardSize);
+    drawCursor(boardSize);
   case 3:
+    isHintMode=false;
+    AImode=false;
     clearHighlight();
     optionBotton(width/2, height/2, boardSize);
     drawScore(width/2, height/2, boardSize);
     drawBoard(width/2, height/2, boardSize);
+    drawCursor(boardSize);
   }
 }
