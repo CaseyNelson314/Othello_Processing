@@ -16,4 +16,4 @@ Othello on prosessing
 
 - HINT : 置けるマスを表示
 - RESET : 初期化
-- SETTING : 未実装
+- AUTO : 未実装
