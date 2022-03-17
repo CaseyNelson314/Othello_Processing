@@ -23,9 +23,9 @@ void drawScore() { //スコアボード
   textAlign(CENTER, CENTER);
   textSize(win.width(80));
   fill(#0d1117);
-  text(getScore_black(), win.x(250), win.y(score_height-10));
+  text(getScore_white(), win.x(250), win.y(score_height-10));
   fill(#eeeeee);
-  text(getScore_white(), win.x(750), win.y(score_height-10));
+  text(getScore_black(), win.x(750), win.y(score_height-10));
 }
 
 void drawBoard() { //ボード表示
