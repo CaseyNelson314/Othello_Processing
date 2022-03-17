@@ -13,44 +13,53 @@ boolean turn; //true:black,false:white
 
 int mode;
 
+final int board_height = 300;
+final int botton_height = 1350;
+
+Window win = new Window();
+Botton option[] = new Botton[3];
+Botton board[][] = new Botton[8][8];
+
 void setup() {
-  frameRate(240);
-  surface.setResizable(true);
-  surface.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+  for (int i=0; i<3; i++)option[i] = new Botton();
+  for (int i=0; i<8; i++)for (int j=0; j<8; j++)board[i][j] = new Botton();
+  frameRate(1000);
+  win.setWindow(WINDOW_WIDTH, WINDOW_HEIGHT, 1000, 1500);
+  win.margin(20);
 }
 void draw() {
   background(#e5b26a);
   print((int)frameRate);
   println("fps");
-  int boardSize = getBoradSize()/2;
+
+  //win.drawWindow();
 
   switch(mode) {
   case 0: //初期化
     boardReset();
     mode++;
   case 1: //メイン処理
-    mouseCD(width/2, height/2, boardSize);
-    optionBotton(width/2, height/2, boardSize);
-    drawScore(width/2, height/2, boardSize);
-    drawTurn(width/2, height/2, boardSize);
-    drawBoard(width/2, height/2, boardSize);
-    drawCursor(boardSize);
+    mouseCD();
+    optionBotton();
+    drawScore();
+    drawBoard();
+    drawCursor();
     break;
   case 2: //ソート待機
     isHintMode=false;
     AImode=false;
     clearHighlight();
-    optionBotton(width/2, height/2, boardSize);
-    drawScore(width/2, height/2, boardSize);
-    drawBoard(width/2, height/2, boardSize);
-    drawCursor(boardSize);
+    optionBotton();
+    drawScore();
+    drawBoard();
+    drawCursor();
   case 3:
     isHintMode=false;
     AImode=false;
     clearHighlight();
-    optionBotton(width/2, height/2, boardSize);
-    drawScore(width/2, height/2, boardSize);
-    drawBoard(width/2, height/2, boardSize);
-    drawCursor(boardSize);
+    optionBotton();
+    drawScore();
+    drawBoard();
+    drawCursor();
   }
 }

@@ -27,28 +27,23 @@ boolean mouseClick() {
   return clickData;
 }
 
-void mouseCD(int x, int y, int boardSize) { //ボードとカーソルの当たり判定をhighlightへ書き込み
-  float blockSize = boardSize / 8;
-  float corner_x = x + blockSize*-4;
-  float corner_y = y + blockSize*-4;
-
+void mouseCD() { //ボードとカーソルの当たり判定をhighlightへ書き込み
   for (int i=0; i<8; i++)
     for (int j=0; j<8; j++) {
-      highlight[i][j]=false;
-      if ((mouseX > corner_x + blockSize*i) && (corner_x + blockSize*(i+1) > mouseX)
-        && (mouseY > corner_y + blockSize*j) && (corner_y + blockSize*(j+1) > mouseY)) {
-        highlight[i][j]=true;
-        if (mouseClick()&&canPut(i, j, true)) {
-          turn ^= true;
-          if (isSkip()) { //相手がスキップか確認
-            turn ^= true;
-            if (isSkip())//どっちも置けない
-              mode++;
-            return;
-          }
-          turnAI();
+      
+      board[i][j].botton(win.x(i*125), win.y(board_height+j*125), win.width(125), win.height(125));
+      highlight[i][j] = board[i][j].hover();
+      if (board[i][j].click()&&canPut(i, j, true)) {//コマ設置時
+        turn^=true;
+        if (isSkip()) { //相手が置けない
+          turn^=true;
+          if (isSkip())//どっちも置けない
+            mode++;
+          return;
         }
+        turnAI();
       }
+      
     }
 }
 
@@ -127,7 +122,6 @@ boolean isSkip() {
   for (int i=0; i<8; i++)
     for (int j=0; j<8; j++)
       canPut += canPut(i, j, false) ? 1 : 0;
-  println(canPut);
   return canPut==0;
 }
 
