@@ -34,7 +34,8 @@ void draw() {
   //print((int)frameRate);
   //println("fps");
 
-  win.drawWindow();
+  //win.drawWindow();
+  
   switch(mode) {
   case 0: //初期化
     boardReset();
