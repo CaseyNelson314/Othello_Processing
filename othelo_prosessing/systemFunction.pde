@@ -20,13 +20,6 @@ int getScore_black() {
   return score;
 }
 
-boolean clickData, lastData;
-boolean mouseClick() { 
-  clickData = mousePressed && !lastData; 
-  lastData = mousePressed;
-  return clickData;
-}
-
 void mouseCD() { //ボードとカーソルの当たり判定をhighlightへ書き込み
   for (int i=0; i<8; i++)
     for (int j=0; j<8; j++) {
