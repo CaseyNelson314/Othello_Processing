@@ -1,10 +1,3 @@
-int getBoradSize() { //画面比率調整
-  if (width >= height)
-    return height;
-  else
-    return width;
-}
-
 int getScore_white() {
   int score= 0; 
   for (int i=0; i<8; i++)
@@ -23,20 +16,19 @@ int getScore_black() {
 void mouseCD() { //ボードとカーソルの当たり判定をhighlightへ書き込み
   for (int i=0; i<8; i++)
     for (int j=0; j<8; j++) {
-      
+
       board[i][j].botton(win.x(i*125), win.y(board_height+j*125), win.width(125), win.height(125));
       highlight[i][j] = board[i][j].hover();
       if (board[i][j].click()&&canPut(i, j, true)) {//コマ設置時
         turn^=true;
+        if (AImode)turnAI();
         if (isSkip()) { //相手が置けない
           turn^=true;
           if (isSkip())//どっちも置けない
             mode++;
           return;
         }
-        turnAI();
       }
-      
     }
 }
 

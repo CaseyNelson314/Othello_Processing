@@ -87,11 +87,19 @@ class Window {
     textAlign(LEFT, DOWN);
   }
 
+  private float lastSize; //前回の幅高さ合計値
+  boolean sizeUpdate() {
+    boolean isUpdate = false;
+    if (width+height != lastSize)isUpdate = true;
+    lastSize = width+height;
+    return isUpdate;
+  }
+
 
   private void updatePoint_x() {
     if (width * heightPerWidth >= height) { //横幅オーバー
-      left_x = width/2 - height*widthPerHeight*margin/2;
-      right_x = width/2 + height*widthPerHeight*margin/2;
+      left_x = (width-height*widthPerHeight*margin)/2;
+      right_x = (width+height*widthPerHeight*margin)/2;
     } else { //縦幅オーバー
       left_x = width*(1-margin)/2;
       right_x = width*(1+margin)/2;
@@ -102,8 +110,8 @@ class Window {
       left_y = height*(1-margin)/2;
       right_y = height*(1+margin)/2;
     } else { //縦幅オーバー
-      left_y = height/2 - width*heightPerWidth*margin/2;
-      right_y = height/2 + width*heightPerWidth*margin/2;
+      left_y = (height-width*heightPerWidth*margin)/2;
+      right_y = (height+width*heightPerWidth*margin)/2;
     }
   }
 };

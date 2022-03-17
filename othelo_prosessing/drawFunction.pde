@@ -2,7 +2,6 @@ boolean AImode; //<>//
 boolean isHintMode;
 
 void drawScore() { //スコアボード
-  final int score_height = 100;
   noStroke();
   rectMode(CENTER);
   int glow=abs(millis()/5%200-100)+120;
@@ -95,7 +94,6 @@ void optionBotton() {
   //RESET,SORT
   fill(#51bd50);
   if (option[1].click()) {
-    AImode = false;
     isHintMode = false;
     if (mode==2) {
       boardSort();
@@ -129,18 +127,10 @@ void optionBotton() {
 
 
 void drawCursor() {
-  if (mode!=1)return;
   int mouseGlow=abs(millis()/10%200-100)+155;
   if (turn)
     fill(0, mouseGlow);
   else
     fill(255, mouseGlow);
   ellipse(mouseX, mouseY, win.width(80), win.width(80));
-}
-
-
-void turnAI() { //<>//
-  if (AImode==false)return;
-
-  turn^=true;
-}
+} //<>//
