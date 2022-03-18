@@ -7,7 +7,7 @@ Othello on prosessing
 
 2. 右上CodeからZipファイルをダウンロード、解凍
 
-3. pdeファイルを開き、左上実行ボタンで起動
+3. pdeファイルをProsessing開き、左上実行ボタンで起動
 
 - マスをクリックすることでコマを置けます
 
