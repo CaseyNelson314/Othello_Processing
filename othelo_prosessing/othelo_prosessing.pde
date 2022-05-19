@@ -26,7 +26,7 @@ void setup() {
   for (int i=0; i<8; i++)for (int j=0; j<8; j++)board[i][j] = new Botton();
   frameRate(60);
   win.setWindow(WINDOW_WIDTH, WINDOW_HEIGHT, 1000, 1500);
-  win.margin(30);
+  win.margin(20);
 }
 
 void draw() {
