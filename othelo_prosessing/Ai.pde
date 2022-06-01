@@ -23,7 +23,7 @@ void turnAI() {
         break;
       }
     }
-  println(canPutCount);
+  //println(canPutCount);
   turn^=true;
 
 
