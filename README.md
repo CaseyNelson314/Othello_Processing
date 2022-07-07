@@ -1,13 +1,13 @@
 # Othello_Prosessing
 
-Othello on prosessing
+Othello on processing
 
 # Usage
-1. Prosessing インストール https://processing.org/download
+1. Processing インストール https://processing.org/download
 
 2. 右上CodeからZipファイルをダウンロード、解凍
 
-3. pdeファイルをProsessingで開き、左上実行ボタンで起動
+3. pdeファイルをProcessingで開き、左上実行ボタンで起動
 
 - マスをクリックすることでコマを置けます
 
